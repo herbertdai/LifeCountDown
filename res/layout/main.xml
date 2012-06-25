@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/cur_date_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hello" />
+    
+    <EditText android:id="@+id/birth_input"
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:hint="Your birthday:YYYYMMDD eg:19840101"
+        	android:maxLines="1"
+        	
+        	/>
+    <Button
+        android:id="@+id/comfirm_btn"
+        android:layout_height="wrap_content"
+        android:layout_width ="fill_parent"
+        android:text=" Start Count Down"/>
+    
+    <TextView
+        android:id="@+id/time_left_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        />
+
+</LinearLayout>

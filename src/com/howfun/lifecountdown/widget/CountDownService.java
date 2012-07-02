@@ -10,23 +10,12 @@ import android.os.IBinder;
 import android.os.Process;
 import android.util.Log;
 
-class Accout {
-	public Accout(int serviceId, int appId, long time) {
-		mServiceId = serviceId;
-		mAppId = appId;
-		mTimeLeft = time;
-	}
-	public int mServiceId;
-	public int mAppId;
-	public long mTimeLeft;
-}
 public class CountDownService extends Service {
 
 	public static final String EXTRA_TIME_CHANGE = "extra time changed.";
 	public static final String ACTION_TIME_CHANGE = "com.howfun.lifecountdown.widget.ACTION_TIME_CHANGE";
 	protected static final long UPDAT_INT = 10;
 	private LocalBinder binder = new LocalBinder();
-	private boolean mRun;
 
 	public class LocalBinder extends Binder {
 
@@ -38,12 +27,10 @@ public class CountDownService extends Service {
 
 	public void onCreate() {
 		Log.e("CountDownService", "service OnCreate()........");
-		mRun = true;
 
 	}
 	
-	private HashMap<Integer, Accout> appIds = new HashMap<Integer, Accout> ();
-	
+    	
 	
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		Log.e("CountDownService", "service starting , id = " + startId);
@@ -53,18 +40,21 @@ public class CountDownService extends Service {
 		int appid = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, -1);
 		
 		final Accout accout = new Accout(startId, appid, time);
-		appIds.put(startId, accout);
+		LifeCountDownWidgetProvider.appIds.put(startId, accout);
 		
 		HandlerThread ht = new HandlerThread("Count down service thread." + startId, Process.THREAD_PRIORITY_BACKGROUND) {
 
 			public void run() {
-				while (mRun) {
+				while (accout.mRun) {
 					// Send Broadcast to update time.
 					sendBoradcast(serviceId);
 					
 					try {
 						sleep(UPDAT_INT * 1000);
 						accout.mTimeLeft -= UPDAT_INT;
+						if (accout.mTimeLeft <= 0) {
+							accout.mRun = false;
+						}
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -80,7 +70,7 @@ public class CountDownService extends Service {
 	
 	
 	protected void sendBoradcast(final int serviceId) {
-		final Accout accout = appIds.get(serviceId);
+		final Accout accout = LifeCountDownWidgetProvider.appIds.get(serviceId);
 		
 		Intent timeChange = new Intent();
 		timeChange.putExtra(EXTRA_TIME_CHANGE, accout.mTimeLeft);

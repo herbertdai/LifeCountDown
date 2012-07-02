@@ -1,5 +1,7 @@
 package com.howfun.lifecountdown.widget;
 
+import java.util.HashMap;
+
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
@@ -8,6 +10,9 @@ import android.util.Log;
 import android.widget.RemoteViews;
 
 public class LifeCountDownWidgetProvider extends AppWidgetProvider {
+	
+	public static HashMap<Integer, Accout> appIds = new HashMap<Integer, Accout> ();
+	
 	private static final String TAG = "LifeCountDownWidgetProvider";
 	private long timeLeftSec;
 	private AppWidgetManager mAppWidgetManger;
@@ -70,5 +75,26 @@ public class LifeCountDownWidgetProvider extends AppWidgetProvider {
 		}
 		super.onUpdate(context, appWidgetManager, appWidgetIds);
 	}
+	@Override
+	public void onDeleted(Context context, int[] appWidgetIds) {
+		
+		for (int i = 0; i < appWidgetIds.length; ++i) {
+			Log.e(TAG, "onDeleted, appId = " + appWidgetIds[i]);
+			
+			Intent service = new Intent(context, CountDownService.class);
+			service.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetIds[i]);
+			context.stopService(service);
+			
+			//Stop thread in service
+			for (Accout a : appIds.values()) {
+				if (a.mAppId == appWidgetIds[i]) {
+					a.mRun = false;
+					Log.e(TAG, "Stop the thread with appid = " + appWidgetIds[i]);
+				}
+			}
+			
+		}
+
+    }
 
 }

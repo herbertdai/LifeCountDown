@@ -10,3 +10,8 @@ Support multiple widget run at same time.
 20120701
 
 herbert dai.
+
+v0.90.00:
+Add input max year you assume to live.
+Add percentage of life left.
+

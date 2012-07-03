@@ -1,5 +1,11 @@
+================================
 LifeCountDown
-=============
+Use GNU GPL v3.0 
+www.gnu.org/licenses/gpl-3.0.html
+
+Author: herbert dai
+Website: www.adaiw.com
+================================
 
 Count down life before death.
 Assume your life is 80 years long.

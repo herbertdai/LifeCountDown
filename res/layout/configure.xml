@@ -8,7 +8,14 @@
         android:id="@+id/cur_date_text"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello" />
+        android:text="@string/assume" />
+    
+    <EditText android:id="@+id/how_long_year_input"
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:text="80"
+        	android:maxLines="1"
+        	/>
     
     <EditText android:id="@+id/birth_input"
         	android:layout_width="fill_parent"

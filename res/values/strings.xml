@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Hello World, LifeCountDownWidgetActivity!</string>
+    <string name="assume"> Guess how long will you live? </string>
     <string name="app_name">LifeCountDownWidget</string>
-    <string name="time_format" formatted="false">Your life on earth is left: \n \n %d Years\n %d Months \n %d Days\n %d Hours\n %d Mins\n %d Secs</string>
+    <string name="time_format" formatted="false">Your life on earth is left: \n \n %d Years\n %d Months \n %d Days\n %d Hours\n %d Mins\n %d Secs
+                                          \n %f％ left.</string>
 
 </resources>

@@ -33,6 +33,7 @@ public class LifeCountDownWidgetProvider extends AppWidgetProvider {
 		if (action.equals(CountDownService.ACTION_TIME_CHANGE)) {
 			timeLeftSec = intent.getLongExtra(
 					CountDownService.EXTRA_TIME_CHANGE, 10);
+			double totalTime = intent.getDoubleExtra(CountDownService.EXTRA_TOTAL_TIME, -1);
 
 			// Update the widget manually.
 			//NOTICE: AppWidgetManger.updateAppWidget() would NOT callback onUpdate().
@@ -46,7 +47,8 @@ public class LifeCountDownWidgetProvider extends AppWidgetProvider {
 			int month = day / 30;
 			int year = day / 365;
 			String timeFormat = context.getResources().getString(R.string.time_format);
-			views.setTextViewText(R.id.time_left_text, String.format(timeFormat, year, month, day, hour, min, timeLeftSec));
+			String show = String.format(timeFormat, year, month, day, hour, min, timeLeftSec, (day / totalTime)* 100);
+			views.setTextViewText(R.id.time_left_text, show);
 			mAppWidgetManger = AppWidgetManager.getInstance(context);
 			if (mAppWidgetManger != null) {
 				mAppWidgetManger.updateAppWidget(appWidgetId, views);

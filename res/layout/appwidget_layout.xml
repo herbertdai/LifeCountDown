@@ -9,7 +9,6 @@
         android:id="@+id/time_left_text"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello" 
         android:textColor="#ff112233"/>
 
 </LinearLayout>
